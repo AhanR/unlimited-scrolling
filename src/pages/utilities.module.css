@@ -1,0 +1,17 @@
+.loading::after {
+    content: "";
+    width: 0.75rem;
+    height: 0.75rem;
+    margin-left: 1ch;
+    border: 2px solid white;
+    border-radius: 50%;
+    background: none;
+    border-top: 2px solid transparent;
+    display: inline-block;
+    animation: loading 1s infinite linear;
+}
+
+@keyframes loading {
+    0% {transform: rotate(0);}
+    100% {transform: rotate(360deg);}
+}
