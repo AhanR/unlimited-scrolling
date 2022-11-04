@@ -8,12 +8,14 @@ export default class Canvas extends Component {
     }
     
     componentDidMount () {
+        this.value = Math.random(this.props.seed);
         this.updateCanvas();
     }
 
     updateCanvas () {
-        const ctx = this.canvasRef.current.getContext('2d');
-        ctx.fillRect(0,0, 100, 100);
+        this.ctx = this.canvasRef.current.getContext('2d');
+        this.ctx.fillRect(0,this.value*window.innerHeight, 100, 100);
+        this.ctx.fillStyle = "#"+parseInt(this.value*1000000);
     }
 
     render() {
