@@ -9,11 +9,11 @@ import CountContext from './pages/context';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <div className="root-background">
+    <div className="root-background font-pant ">
       <CountContext>
         <Router>
           <Routes>
-            <Route index element={<Home/>} />
+            <Route index element={<Home/>}/>
             <Route path='view' element={<Slides/>}/>
           </Routes>
         </Router>

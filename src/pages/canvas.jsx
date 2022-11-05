@@ -54,7 +54,7 @@ export default class Canvas extends Component {
     }
     
     play = () => {
-        console.log("a canvas is running");
+        // console.log("a canvas is running");
 
         if(this.r > this.height*0.35) {
             this.write("animation complete");

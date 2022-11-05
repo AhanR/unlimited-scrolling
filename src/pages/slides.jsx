@@ -4,14 +4,14 @@ import Canvas from './canvas';
 import style from './utilities.module.css'
 import { Context } from './context';
 import { Link } from 'react-router-dom';
+import config from '../config'
 
 export const PageContext = React.createContext();
 
-export default function Slides() {
-    
+export default function Slides(props) {
     const { count, setCount } = useContext(Context);
 
-    const width = window.innerWidth*0.3;
+    const width = (window.innerWidth / window.innerHeight < 1 )? window.innerWidth: window.innerWidth*0.4;
     const height = window.innerHeight;
     const minimum = 1;
     const [seed, setSeed] = useState(0);
@@ -20,9 +20,10 @@ export default function Slides() {
     const [error, setError] = useState(false);
     const [inView, setInView] = useState(1);
 
+    const apiKey = config['api-key'];
+
     //setting count to zero on mount
     useEffect(() => {
-        console.log(buffer[inView]);
         setCount(minimum);
         return () => {
             setInView(-1);
@@ -35,11 +36,8 @@ export default function Slides() {
         const slideNumber = Math.floor((evt.currentTarget.scrollTop + height / 2) / height);
 
         if(inView != slideNumber) {
-            // pause the previous slide
-
-            // play the new slide
             setInView(slideNumber);
-            console.log(slideNumber);
+            // console.log(slideNumber);
         }
 
         if (scrollIndex > 0) {
@@ -56,11 +54,14 @@ export default function Slides() {
                 method: "GET",
                 headers: {
                     "accept": "*/*",
-                    "X-Api-Key": "3f9db52d7d814df08f450e3e5ed780c0"
+                    "X-Api-Key": apiKey
                 }
             }
         )
-        .then(res => res.text())
+        .then(res => {
+            if(Math.floor(res.status/100) == 2) return res.text();
+            else throw new Error("Could not connect to server");
+        })
         .then(txt => {
             const newSeed = txt.replaceAll("-", "").replaceAll("\"","");
             setSeed(parseInt(newSeed));
@@ -68,7 +69,7 @@ export default function Slides() {
             setLoading(false);
         })
         .catch(e => {
-            console.log(e.message);
+            // console.log(e.message);
             setLoading(false);
             setError(e.message);
         });
@@ -87,7 +88,7 @@ export default function Slides() {
                 <h1 className=' w-[100%] text-2xl font-bold ' >Slides</h1>
                 <Link to={"/"} className=" underline " >Home</Link>
                 <div>buffer : {buffer.length}</div>
-                <div>seed : { buffer[inView] }</div>
+                <div>seed : { buffer[inView] ? buffer[inView][0] : "xxxxxxxxx" }</div>
             </div>
             <PageContext.Provider value={{ inView }}>
                 {
