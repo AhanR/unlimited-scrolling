@@ -86,6 +86,7 @@ export default function Slides(props) {
         >
             <div className={` sticky top-0 left-0 w-[100%] bg-white flex flex-wrap justify-between p-4 `} >
                 <h1 className=' w-[100%] text-2xl font-bold ' >Slides</h1>
+                <h4 className=' w-[100%] ' >Scroll to start animation</h4>
                 <Link to={"/"} className=" underline " >Home</Link>
                 <div>buffer : {buffer.length}</div>
                 <div>seed : { buffer[inView] ? buffer[inView][0] : "xxxxxxxxx" }</div>
