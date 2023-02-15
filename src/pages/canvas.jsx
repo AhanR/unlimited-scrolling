@@ -21,7 +21,7 @@ export default class Canvas extends Component {
         this.r = 80+Math.floor(10*Math.random(this.props.seed));
         this.dr = Math.random(this.props.seed) + 0.1;
 
-        this.t = Math.PI/2;
+        this.t = Math.PI;
         this.dt = Math.PI/24;
 
         
