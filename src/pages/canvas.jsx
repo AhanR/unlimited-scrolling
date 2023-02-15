@@ -18,10 +18,10 @@ export default class Canvas extends Component {
 
         // t : theta (angle for rotation)
         // r : radius of rotation
-        this.r = 30+Math.floor(10*Math.random(this.props.seed));
+        this.r = 80+Math.floor(10*Math.random(this.props.seed));
         this.dr = Math.random(this.props.seed) + 0.1;
 
-        this.t = 0;
+        this.t = Math.PI/2;
         this.dt = Math.PI/24;
 
         
